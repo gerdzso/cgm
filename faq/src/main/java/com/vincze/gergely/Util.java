@@ -1,10 +1,23 @@
 package com.vincze.gergely;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Util {
+	
+	/**
+	 * Creates the resources folder, if it is not exists
+	 * @throws IOException
+	 */
+	public static void createResourcesFolderIfNotExists() {
+		File directory = new File("resources/");
+	    if (! directory.exists()){
+	        directory.mkdir();
+	    }
+	}
 	
 	/**
 	 * This method gets the input from the user from the console

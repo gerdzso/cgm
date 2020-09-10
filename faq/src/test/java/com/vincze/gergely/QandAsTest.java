@@ -3,6 +3,7 @@ package com.vincze.gergely;
 
 import static org.junit.Assert.assertTrue;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class QandAsTest {
 	
 	@BeforeClass
 	public static void createTestFile() {
+		Util.createResourcesFolderIfNotExists();
 		QandAs qa = getDummyQandAObject();
 		qa.saveQandAs("resources/testQA.json");
 	}

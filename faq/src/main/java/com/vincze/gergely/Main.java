@@ -1,8 +1,10 @@
 package com.vincze.gergely;
 
+
 public class Main {
 	
 	public static void main(String[] args) {
+		Util.createResourcesFolderIfNotExists();
 		QandAs qA = new QandAs(true);
 		String s;
 		boolean firstRun = true;
