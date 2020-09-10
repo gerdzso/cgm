@@ -3,14 +3,14 @@ package com.vincze.gergely;
 public class Main {
 	
 	public static void main(String[] args) {
-		QandAs qA = new QandAs();
+		QandAs qA = new QandAs(true);
 		String s;
 		String[] splittedS;
 		boolean firstRun = true;
 		while (true) {
 			s = Util.getQuestionFromConsole(firstRun);
 			if (s.equals(Consts.EXIT_COMMAND)) {
-				System.exit(0);
+				break;
 			}
 			firstRun = false;
 			splittedS = Util.checkQuestionMarks(s);
@@ -23,7 +23,7 @@ public class Main {
 			}
 			System.out.println(Consts.CONSOLE_DELIMITTER);
 		}
-		
+		qA.saveQandAs(Consts.QANDAJSONFILE_PATH);
 	}
 	
 	
