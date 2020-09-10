@@ -34,7 +34,7 @@ public class QandAsTest {
 		//qa.printAnswer("Could you give me 2 colors");
 		//Assert.assertEquals("blue\r\ngreen", systemOutRule.getLog().trim());
 		qa.printAnswer("What is 6 * 7");
-		Assert.assertEquals("-0", systemOutRule.getLog().trim());
+		Assert.assertEquals("42", systemOutRule.getLog().trim());
 	}
 	
 	@Test
