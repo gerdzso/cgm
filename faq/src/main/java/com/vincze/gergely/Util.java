@@ -6,6 +6,11 @@ import java.util.Scanner;
 
 public class Util {
 	
+	/**
+	 * This method gets the input from the user from the console
+	 * @param firstRun This indicates that, the app asks the user for the first time
+	 * @return String returns a question/answer setup/ exit command from the user 
+	 */
 	public static String getQuestionFromConsole(boolean firstRun) {
 		if (firstRun) {
 			System.out.println(Consts.FIRST_QUESTION);
@@ -19,6 +24,11 @@ public class Util {
 	    return s;
 	}
 	
+	/**
+	 * This method a simple parser, parsing the answers provided by the user in the proper form
+	 * @param s input string containing the answer part of the user's input
+	 * @return List<String> a parsed form of the input string 
+	 */
 	public static List<String> evaluateAnswers(String s){
 		String[] splitted = s.split(Consts.DELIMITTER_ANSWER_MARK);
 		List<String> out = new ArrayList<String>();
@@ -37,7 +47,7 @@ public class Util {
 				splitted[i] = splitted[i].substring(0, splitted[i].length() - Consts.END_ANSWER_MARK.length());
 			}
 			
-			if (countCharOccurance(splitted[i], Consts.QUOTE_MARK_CH) > 0) {
+			if (countCharOccurrence(splitted[i], Consts.QUOTE_MARK_CH) > 0) {
 				return sendNUllWithProblemMessage();
 			}
 			out.add(splitted[i]);
@@ -45,15 +55,13 @@ public class Util {
 		return out;
 	}
 	
-	private static List<String> sendNUllWithProblemMessage(){
-		System.out.println(Consts.WRONG_ANSWER_FORMAT_MSG);
-		return null;
-	}
 	
-	private static long countCharOccurance(String s, char c) {
-		return s.chars().filter(ch -> ch == c).count();
-	}
-	
+	/**
+	 * This method splits the user's input into a question and an aswer, if there is only a question,
+	 * the answer part of the return array is a space
+	 * @param s input string from the user
+	 * @return String[] input splitted into two parts: question, answers
+	 */
 	public static String[] checkQuestionMarks(String s) {
 		s = ' ' + s + ' ';
 		String[] splitted = s.split("\\?");
@@ -67,5 +75,24 @@ public class Util {
 		return splitted;
 	}
 	
+
+	/**
+	 * This method returns a null and prints wrong answer format message to the console
+	 * @return null
+	 */
+	private static List<String> sendNUllWithProblemMessage(){
+		System.out.println(Consts.WRONG_ANSWER_FORMAT_MSG);
+		return null;
+	}
+	
+	/**
+	 * This method counts character occurrence in a string
+	 * @param s examined string
+	 * @param c examined character
+	 * @return long number of the occurrence
+	 */
+	private static long countCharOccurrence(String s, char c) {
+		return s.chars().filter(ch -> ch == c).count();
+	}
 
 }
