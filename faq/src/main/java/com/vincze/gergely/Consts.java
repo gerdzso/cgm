@@ -13,7 +13,7 @@ public class Consts {
 	public static final String EXIT_COMMAND = "exit";
 	public static final String START_ANSWER_MARK = " \"";
 	public static final String DELIMITTER_ANSWER_MARK = "\" \"";
-	public static final String END_ANSWER_MARK = "\" ";
+	public static final String END_ANSWER_MARK = "\"";
 	public static final char QUOTE_MARK_CH = '\"';
 	public static final String QANDAJSONFILE_PATH = "resources/qanda.json";
 	public static final int MAX_CHARACTER_NUMBER = 255;

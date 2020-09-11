@@ -4,7 +4,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		Util.createResourcesFolderIfNotExists();
-		QandAs qA = new QandAs(true);
+		KnowledgeBase qA = new KnowledgeBase(Consts.QANDAJSONFILE_PATH);
 		Util.inputQuestionAnswerHandler(qA);
 		qA.saveQandAs(Consts.QANDAJSONFILE_PATH);
 	}

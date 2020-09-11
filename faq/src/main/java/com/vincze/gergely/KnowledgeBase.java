@@ -12,7 +12,7 @@ import java.util.Map;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-public class QandAs {
+public class KnowledgeBase {
 
 	private Map<String, List<String>> QAMap;
 
@@ -28,14 +28,21 @@ public class QandAs {
 	/**
 	 * Constructor of QandA object
 	 * 
-	 * @param loadQandAs boolean if true, the object will be filled with former
-	 *                   QandA-s, otherwise create an empty QandA
 	 */
-	public QandAs(boolean loadQandAs) {
-		if (loadQandAs) {
-			loadQandAs(Consts.QANDAJSONFILE_PATH);
+	public KnowledgeBase() {
+		QAMap = new HashMap<String, List<String>>();
+	}
+
+	/**
+	 * Constructor of QandA object
+	 * 
+	 * @param qandaFilePath file path of a qanda json file
+	 */
+	public KnowledgeBase(String qandaFilePath) {
+		if (qandaFilePath != null) {
+			loadQandAs(qandaFilePath);
 		} else {
-			QAMap = new HashMap<String, List<String>>();
+			new KnowledgeBase();
 		}
 	}
 
@@ -46,7 +53,7 @@ public class QandAs {
 	 * @param answers  List of strings of answers for the question
 	 */
 	public void updateQandAs(String question, List<String> answers) {
-		if (answers != null) {
+		if (answers != null && question != null) {
 			QAMap.put(question, answers);
 		}
 	}
@@ -58,6 +65,9 @@ public class QandAs {
 	 * @param question the question what the user asked
 	 */
 	public void printAnswer(String question) {
+		if (question == null) {
+			return;
+		}
 		try {
 			for (String answer : QAMap.get(question)) {
 				System.out.println(answer);
@@ -74,6 +84,9 @@ public class QandAs {
 	 * @param resourcePath path of the target json file
 	 */
 	public void loadQandAs(String resourcePath) {
+		if (resourcePath == null) {
+			return;
+		}
 		try {
 			String content = new String(Files.readAllBytes(Paths.get(resourcePath)));
 			Type type = new TypeToken<HashMap<String, List<String>>>() {
@@ -92,6 +105,9 @@ public class QandAs {
 	 * @param resourcePath path of the json file
 	 */
 	public void saveQandAs(String resourcePath) {
+		if (resourcePath == null) {
+			return;
+		}
 		Gson gson = new Gson();
 		FileOutputStream outputStream;
 		try {

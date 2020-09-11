@@ -3,6 +3,7 @@ package com.vincze.gergely;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ public class Util {
 	 * 
 	 * @param qA qA QandAs type object to get or update answers
 	 */
-	public static void inputQuestionAnswerHandler(QandAs qA) {
+	public static void inputQuestionAnswerHandler(KnowledgeBase qA) {
 		String userInput;
 		boolean firstRunFlag = true;
 		while (true) {
@@ -38,18 +39,18 @@ public class Util {
 	 * @param userInput string typed by the user
 	 * @param qA        QandAs type object to get or update answers
 	 */
-	public static void decideQuestionOrAnswer(String userInput, QandAs qA) {
+	public static void decideQuestionOrAnswer(String userInput, KnowledgeBase qA) {
 		if (userInput == null || qA == null) {
 			return;
 		}
-		String[] splittedS = Util.checkQuestionMarks(userInput);
-		if (splittedS == null) {
+		String[] splitted = Util.checkQuestionMarks(userInput);
+		if (splitted == null) {
 			return;
 		}
-		if (splittedS[1].equals(" ")) {
-			qA.printAnswer(splittedS[0]);
+		if (splitted[1].equals("")) {
+			qA.printAnswer(splitted[0]);
 		} else {
-			qA.updateQandAs(splittedS[0], Util.evaluateAnswers(splittedS[1]));
+			qA.updateQandAs(splitted[0], Util.evaluateAnswers(splitted[1]));
 		}
 	}
 
@@ -92,34 +93,22 @@ public class Util {
 	 * @param answers input string containing the answer part of the user's input
 	 * @return List<String> a parsed form of the input string
 	 */
+
 	public static List<String> evaluateAnswers(String answers) {
 		List<String> out = new ArrayList<String>();
 		if (answers == null) {
 			return out;
 		}
-
 		String[] splitted = answers.split(Consts.DELIMITTER_ANSWER_MARK);
-
-		for (int i = 0; i < splitted.length; i++) {
-
-			if (i == 0 && !splitted[i].startsWith(Consts.START_ANSWER_MARK)) {
-				return sendNUllWithProblemMessage();
-			} else if (i == 0 && splitted[i].startsWith(Consts.START_ANSWER_MARK)) {
-				splitted[i] = splitted[i].substring(Consts.START_ANSWER_MARK.length());
-			}
-
-			if (i == splitted.length - 1 && !splitted[i].endsWith(Consts.END_ANSWER_MARK)) {
-				return sendNUllWithProblemMessage();
-			} else if (i == splitted.length - 1 && splitted[i].endsWith(Consts.END_ANSWER_MARK)) {
-				splitted[i] = splitted[i].substring(0, splitted[i].length() - Consts.END_ANSWER_MARK.length());
-			}
-
-			if (countCharOccurrence(splitted[i], Consts.QUOTE_MARK_CH) > 0) {
-				return sendNUllWithProblemMessage();
-			}
-			out.add(splitted[i]);
+		if (countCharOccurrence(answers, Consts.QUOTE_MARK_CH) != 2 * splitted.length
+				|| !splitted[0].startsWith(Consts.START_ANSWER_MARK)
+				|| !splitted[splitted.length - 1].endsWith(Consts.END_ANSWER_MARK)) {
+			return sendNUllWithProblemMessage();
 		}
-		return out;
+		splitted[0] = splitted[0].substring(Consts.START_ANSWER_MARK.length());
+		splitted[splitted.length - 1] = splitted[splitted.length - 1].substring(0,
+				splitted[splitted.length - 1].length() - Consts.END_ANSWER_MARK.length());
+		return Arrays.asList(splitted);
 	}
 
 	/**
@@ -133,8 +122,7 @@ public class Util {
 		if (userInput == null) {
 			userInput = "";
 		}
-		userInput = ' ' + userInput + ' ';
-		String[] splitted = userInput.split("\\?");
+		String[] splitted = userInput.split("\\?", -1);
 		if (splitted.length == 1) {
 			System.out.println(Consts.MISSING_QUESTIONMARK_MSG);
 			return null;
