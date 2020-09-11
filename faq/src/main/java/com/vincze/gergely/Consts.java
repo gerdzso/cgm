@@ -1,7 +1,7 @@
 package com.vincze.gergely;
 
 public class Consts {
-	
+
 	public static final String ANSWER_FOR_EVERITHING_MSG = "the answer to life, universe and everything is 42";
 	public static final String FIRST_QUESTION = "Just ask me, I'll try to answer! (type exit to leave)";
 	public static final String MORE_QUESTION = "Ask more! (type exit to leave)";

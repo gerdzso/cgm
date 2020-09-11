@@ -13,20 +13,23 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class QandAs {
-	
+
 	private Map<String, List<String>> QAMap;
-	
+
 	/**
 	 * getter for QandAs dataholder HashMap
+	 * 
 	 * @returndataholder HashMap
 	 */
-	public Map<String, List<String>> getQAMap(){
+	public Map<String, List<String>> getQAMap() {
 		return this.QAMap;
 	}
 
 	/**
 	 * Constructor of QandA object
-	 * @param loadQandAs boolean if true, the object will be filled with former QandA-s, otherwise create an empty QandA
+	 * 
+	 * @param loadQandAs boolean if true, the object will be filled with former
+	 *                   QandA-s, otherwise create an empty QandA
 	 */
 	public QandAs(boolean loadQandAs) {
 		if (loadQandAs) {
@@ -35,20 +38,23 @@ public class QandAs {
 			QAMap = new HashMap<String, List<String>>();
 		}
 	}
-	
+
 	/**
 	 * Add or update answers for the question
+	 * 
 	 * @param question String of a question
-	 * @param answers List of strings of answers for the question
+	 * @param answers  List of strings of answers for the question
 	 */
 	public void updateQandAs(String question, List<String> answers) {
 		if (answers != null) {
 			QAMap.put(question, answers);
 		}
 	}
-	
+
 	/**
-	 * This method gets the answer for a question, if it is not available it provides the ultimate answer
+	 * This method gets the answer for a question, if it is not available it
+	 * provides the ultimate answer
+	 * 
 	 * @param question the question what the user asked
 	 */
 	public void printAnswer(String question) {
@@ -60,25 +66,29 @@ public class QandAs {
 			System.out.println(Consts.ANSWER_FOR_EVERITHING_MSG);
 		}
 	}
-	
+
 	/**
-	 * Loads a json file content into the QandAs object, if the json format is invelid or not exists
-	 * it create an empty QandAs object
+	 * Loads a json file content into the QandAs object, if the json format is
+	 * invelid or not exists it create an empty QandAs object
+	 * 
 	 * @param resourcePath path of the target json file
 	 */
 	public void loadQandAs(String resourcePath) {
 		try {
-            String content = new String(Files.readAllBytes( Paths.get(resourcePath)));
-            Type type = new TypeToken<HashMap<String, List<String>>>(){}.getType();
-            QAMap = new Gson().fromJson(content, type);
-        }  catch (IOException e)  {
-            //e.printStackTrace(); This should be logged
-            QAMap = new HashMap<String, List<String>>();
-        }
+			String content = new String(Files.readAllBytes(Paths.get(resourcePath)));
+			Type type = new TypeToken<HashMap<String, List<String>>>() {
+			}.getType();
+			QAMap = new Gson().fromJson(content, type);
+		} catch (IOException e) {
+			// e.printStackTrace(); This should be logged
+			QAMap = new HashMap<String, List<String>>();
+		}
 	}
-	
+
 	/**
-	 * This method create/overwrite a json file with the content of the QandAs object
+	 * This method create/overwrite a json file with the content of the QandAs
+	 * object
+	 * 
 	 * @param resourcePath path of the json file
 	 */
 	public void saveQandAs(String resourcePath) {
@@ -89,7 +99,7 @@ public class QandAs {
 			outputStream.write(gson.toJson(QAMap).getBytes());
 			outputStream.close();
 		} catch (IOException e) {
-			//e.printStackTrace(); This should be logged
+			// e.printStackTrace(); This should be logged
 		}
 	}
 
