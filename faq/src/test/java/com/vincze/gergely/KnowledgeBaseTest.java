@@ -12,7 +12,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.SystemOutRule;
 
-public class QandAsTest {
+public class KnowledgeBaseTest {
 
 	@BeforeClass
 	public static void createTestFile() {
